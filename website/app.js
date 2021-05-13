@@ -4,12 +4,12 @@ const elementDate = document.getElementById("date");
 const elementTemp = document.getElementById("temp");
 const elementFeelings = document.getElementById("feelings");
 const elementContent = document.getElementById("content");
-const weatherBaseUrl = "https://api.openweathermap.org/data/2.5/weather?q=EGYPT&ZIP=";
-const weatherAPI_key = "&APPID=7a1cc692b22866c6c737ed0af9f96655";
+const weatherBaseUrl = "https://api.openweathermap.org/data/2.5/weather?zip=";
+const weatherAPI_key = "&appid=7a1cc692b22866c6c737ed0af9f96655&units=metric";
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+let newDate = d.getMonth()+1+'.'+ d.getDate()+'.'+ d.getFullYear();
 
 /* Events */ 
 
@@ -42,7 +42,7 @@ const updateUI = async ()=> {
         const allData = await response.json();
         const lastIndex = allData.length - 1;
         elementDate.textContent = "date: "+allData[lastIndex].date;
-        elementTemp.textContent = "Temprture: "+allData[lastIndex].temp;
+        elementTemp.textContent = "Temprture: "+allData[lastIndex].temp+"°C";
         elementContent.textContent = "Your feelings: "+allData[lastIndex].content;
     }catch(error) {
         console.log("error", error);
