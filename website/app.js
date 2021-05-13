@@ -41,9 +41,9 @@ const updateUI = async ()=> {
     try {
         const allData = await response.json();
         const lastIndex = allData.length - 1;
-        elementDate.textContent = allData[lastIndex].date;
-        elementTemp.textContent = allData[lastIndex].temp;
-        elementContent.textContent = allData[lastIndex].content;
+        elementDate.textContent = "date: "+allData[lastIndex].date;
+        elementTemp.textContent = "Temprture: "+allData[lastIndex].temp;
+        elementContent.textContent = "Your feelings: "+allData[lastIndex].content;
     }catch(error) {
         console.log("error", error);
         }
