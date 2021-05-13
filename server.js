@@ -27,10 +27,19 @@ app.use(express.static('website'));
 const server = app.listen(port, ()=> console.log(`Listening on port:${port}`));
 
 // Routes
+/**
+ * A server-side GET route to return all data
+ * @param  {} '/getData'
+ * @param  {} function(req, res)
+ */
 app.get('/getData', function (req, res) {
     res.send(data);
   });
-
+/**
+ * A server-side POST route to save recieved data from client
+ * @param  {} '/addData'
+ * @param  {} function(req, res)
+ */
 app.post('/addData', function (req, res) {
     data.push(req.body);
   console.log(data);

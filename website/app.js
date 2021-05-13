@@ -6,14 +6,23 @@ const elementFeelings = document.getElementById("feelings");
 const elementContent = document.getElementById("content");
 const weatherBaseUrl = "https://api.openweathermap.org/data/2.5/weather?q=EGYPT&ZIP=";
 const weatherAPI_key = "&APPID=7a1cc692b22866c6c737ed0af9f96655";
+
 // Create a new date instance dynamically with JS
 let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
-// Add event listeners
+/* Events */ 
+
+// Post data then update UI when click button "generate"
 document.querySelector("#generate").addEventListener("click", getWeatherHandler);
 
 // Event listeners handlers
+/**
+ * This handler is passed to "click" event listener of "#generate" element
+ * handles these jobs: fetch weather data
+ *                     then post user data to server endpoint
+ *                     then update UI
+ */
 function getWeatherHandler() {
     let valueZIP = elementZIP.value;
     let valueFeelings = elementFeelings.value;
@@ -21,7 +30,12 @@ function getWeatherHandler() {
         postWeather("/addData",{date: newDate, temp: data.main.temp,content: valueFeelings})}
         ).then(updateUI);
 }
-//---------------
+
+/* App functions */
+
+/**
+ * This Async function fetch data from server and update UI according to this data
+ */
 const updateUI = async ()=> {
     const response = await fetch ("/getData");
     try {
@@ -35,6 +49,14 @@ const updateUI = async ()=> {
         }
 
 } 
+
+/* HTTPS route requests */
+
+/**
+ * An Async function to fetch weather from site "https://api.openweathermap.org/"
+ * in Egypt according to region ZIP
+ * @param  {} ZIP="" Egyptian region ZIP
+ */
 const getWeather = async (ZIP = "")=>{
     const response = await fetch(weatherBaseUrl+ZIP+weatherAPI_key);
 
@@ -47,7 +69,11 @@ const getWeather = async (ZIP = "")=>{
       }
   };
 
-//---------------
+/**
+ * An async function to post user data beside weather to server endpoint
+ * @param  {} url='' server post route path
+ * @param  {} data={} data to be posted in json form
+ */
 const postWeather = async ( url = '', data = {})=>{
     console.log(data);
       const request = await fetch(url, {
